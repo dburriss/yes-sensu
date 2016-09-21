@@ -2,11 +2,15 @@
 
 I am a client for sending messages to Sensu.
 
+| DEV |MASTER|BLEEDING|NUGET|
+|-----|------|--------|-----|
+|[![CI status][1]][2]|[![Release Build status][3]][4]|[![MyGet CI][5]][6]|[![NuGet CI][7]][8]|
+
 ## Usage
 
 ### Installation
 
-> Install-Package YesSensu.Core
+> Install-Package YesSensu
 
 ### Setup a heart beat
 
@@ -64,3 +68,13 @@ var sensuClient = new SensuUdpClient("sensu.myhost.com", 3000);
 sensuClient.Connect();
 sensuClient.Send(obj); // where obj is some JSON serializable object
 ```
+
+
+[1]: https://ci.appveyor.com/api/projects/status/sb2eidh6qhnoj4lt?svg=true
+[2]: https://ci.appveyor.com/project/dburriss/yes-sensu
+[3]: https://ci.appveyor.com/api/projects/status/sb2eidh6qhnoj4lt/branch/master?svg=true
+[4]: https://ci.appveyor.com/project/dburriss/yes-sensu/branch/master
+[5]: https://img.shields.io/myget/dburriss-ci/vpre/YesSensu.svg
+[6]: https://www.myget.org/feed/Packages/dburriss-ci
+[7]: https://img.shields.io/nuget/v/YesSensu.svg
+[8]: https://www.nuget.org/packages/YesSensu/
