@@ -21,14 +21,6 @@ deploy:
   skip_symbols: true
   on:
     branch: develop
-deploy:  
-- provider: NuGet
-  server: https://www.myget.org/F/dburriss-ci/api/v2/package
-  api_key:
-    secure: 'Rx7T4w1rjWYdQyNk7wKBOjylk11kMKhd8QfVnjbLdTNr+HJwDIDegUzqb5AXNWmr'
-  skip_symbols: true
-  on:
-    branch: master
 deploy:
 - provider: NuGet
   name: production
