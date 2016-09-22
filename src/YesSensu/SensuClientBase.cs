@@ -21,6 +21,7 @@ namespace YesSensu
         {
             if (message == null)
                 return;
+
             foreach (var enricher in Enrichers)
             {
                 enricher.Enrich(message);
