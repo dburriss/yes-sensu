@@ -1,14 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO.Compression;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using YesSensu;
 using YesSensu.Messages;
 
@@ -17,23 +7,25 @@ namespace ConsoleApp1
     public class Program
     {
         private const string AppName = "ConsoleApp1";
-        private static string ip;
-        private static int port;
+        private static string _host;
+        private static int _port;
+        private static ClientType _type;
+
         public static void Main(string[] args)
         {
-            Console.WriteLine("Enter IP Address");
-            ip = Console.ReadLine();
-            bool keepAlive = true;
-            Console.WriteLine("Enter port number");
-            port = Convert.ToInt32(Console.ReadLine());
+            SelectProtocol();
+            SelectHost();
+            SelectPort();
 
-            var paceMaker = SensuNinja.Get(ip, port);
+            bool keepAlive = true;
+
+            var paceMaker = SensuNinja.Get(_host, _port, _type);
             paceMaker.Start(new Heartbeat(AppName));
-            using (var client = new SensuUdpClient(ip, port))
+            using (var client = Client())
             {
                 //client.Connect();
                 var monitor = new SensuMonitor(client, AppName);
-                
+
                 Console.WriteLine("Connected to server.");
                 Menu();
                 while (keepAlive)
@@ -69,9 +61,51 @@ namespace ConsoleApp1
                         keepAlive = false;
                     }
                 }
-                
+                paceMaker.Stop();
             }
+            Environment.Exit(0);
+        }
 
+        private static void SelectHost()
+        {
+            Console.WriteLine("Enter host Address");
+            var h = Console.ReadLine();
+            _host = string.IsNullOrEmpty(h) ? "127.0.0.1" : h;
+        }
+
+        private static void SelectPort()
+        {
+            Console.WriteLine("Enter port number");
+            var p = Console.ReadLine();
+            if (string.IsNullOrEmpty(p))
+            {
+                p = _type == ClientType.UDP ? "11000" : "13000";
+            }
+            _port = Convert.ToInt32(p);
+        }
+
+        private static ISensuClient Client()
+        {
+            if(_type == ClientType.UDP)
+                return new SensuUdpClient(_host, _port);
+            return new SensuTcpClient(_host, _port);
+        }
+
+        private static void SelectProtocol()
+        {
+            int t = -1;
+            Console.WriteLine("Choose protocol. '0' for UDP or '1' for TCP: ");
+            var c = Console.ReadKey().KeyChar.ToString();
+            if (int.TryParse(c, out t))
+            {
+                if (t == 0 || t == 1)
+                    _type = (ClientType) t;
+                else
+                {
+                    Console.WriteLine("Invalid protocol choice.");
+                    SelectProtocol();
+                }
+            }
         }
 
         private static void SendAppUp(SensuMonitor monitor, string message)
