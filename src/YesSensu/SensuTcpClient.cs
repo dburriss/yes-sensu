@@ -1,9 +1,8 @@
-﻿using System;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace YesSensu.Core
+namespace YesSensu
 {
     public class SensuTcpClient : ISensuClient
     {

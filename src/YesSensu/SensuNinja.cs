@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace YesSensu.Core
+namespace YesSensu
 {
     public static class SensuNinja
     {
@@ -23,7 +23,16 @@ namespace YesSensu.Core
 
             return PaceMakers[key];
         }
+
+
+        public static void Close(string host, int port, ClientType clientType = ClientType.UDP)
+        {
+            var pacemaker = Get(host, port, clientType);
+            pacemaker.Stop();
+            PaceMakers.Remove(new Tuple<string, int, ClientType>(host, port, clientType));
+        }
     }
+
 
     public enum ClientType
     {

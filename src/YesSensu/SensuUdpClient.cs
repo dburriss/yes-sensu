@@ -1,8 +1,7 @@
-﻿using System;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Text;
 
-namespace YesSensu.Core
+namespace YesSensu
 {
     public class SensuUdpClient : ISensuClient
     {
@@ -18,7 +17,7 @@ namespace YesSensu.Core
 
         public virtual void Connect()
         {
-            _client = new UdpClient(_port);
+            _client = new UdpClient();
         }
 
         public virtual void Send<TMessage>(TMessage message)
@@ -40,6 +39,5 @@ namespace YesSensu.Core
                 _client?.Dispose();
             }
         }
-        
     }
 }

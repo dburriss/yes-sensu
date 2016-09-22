@@ -1,4 +1,4 @@
-﻿namespace YesSensu.Core.Messages
+﻿namespace YesSensu.Messages
 {
     public class AppOk : SensuBase
     {
