@@ -1,10 +1,11 @@
 ﻿using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using YesSensu.Core;
 
 namespace YesSensu
 {
-    public class SensuTcpClient : ISensuClient
+    public class SensuTcpClient : SensuClientBase
     {
         private readonly string _host;
         private readonly int _port;
@@ -16,7 +17,7 @@ namespace YesSensu
             _port = port;
         }
 
-        public virtual void Connect()
+        public override void Connect()
         {
             _client = new TcpClient();
             _client.ConnectAsync(_host, _port);
@@ -26,14 +27,15 @@ namespace YesSensu
             }
         }
 
-        public virtual void Send<TMessage>(TMessage message)
+        public override void Send<TMessage>(TMessage message)
         {
+            EnrichMessage(message as IHaveMeta);
             var msg = LowercaseJsonSerializer.SerializeObject(message);
             byte[] toBytes = Encoding.ASCII.GetBytes(msg);
             _client.GetStream().WriteAsync(toBytes, 0, toBytes.Length);
         }
 
-        public virtual void Dispose()
+        public override void Dispose()
         {
             Dispose(true);
         }

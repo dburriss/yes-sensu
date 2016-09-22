@@ -15,8 +15,12 @@ var configuration = Argument("configuration", "Release");
 var solutionDir = Directory("./");
 var solutionFile = solutionDir + File("YesSensu.sln");
 var globalFile = solutionDir + File("global.json");
-var projDir = "./src/YesSensu/";
-var buildDir = Directory(projDir + "bin") + Directory(configuration);
+var sensuCoreProjDir = "./src/YesSensu.Core/";
+var sensuCoreBuildDir = Directory(sensuProjDir + "bin") + Directory(configuration);
+var sensuProjDir = "./src/YesSensu/";
+var sensuBuildDir = Directory(sensuProjDir + "bin") + Directory(configuration);
+var sensuEnrichersProjDir = "./src/YesSensu.Enrichers/";
+var sensuEnrichersBuildDir = Directory(sensuProjDir + "bin") + Directory(configuration);
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -25,7 +29,7 @@ var buildDir = Directory(projDir + "bin") + Directory(configuration);
 Task("Clean")
     .Does(() =>
 {
-    CleanDirectory(buildDir);
+    CleanDirectory(sensuBuildDir);
 });
 
 
@@ -39,7 +43,7 @@ Task("Restore")
 Task("Update-Version")
     .Does(() => 
 {
-    var jsonFile = projDir + "project.json";
+    var jsonFile = sensuProjDir + "project.json";
     GitVersion(new GitVersionSettings {
         UpdateAssemblyInfo = true});
     string version = GitVersion().FullSemVer;
@@ -94,7 +98,9 @@ Task("Package")
         OutputDirectory = "./artifacts/"
     };
 
-    DotNetCorePack(projDir + "project.json", settings);
+    DotNetCorePack(sensuCoreProjDir + "project.json", settings);
+    DotNetCorePack(sensuProjDir + "project.json", settings);
+    DotNetCorePack(sensuEnrichersProjDir + "project.json", settings);
 });
 
 

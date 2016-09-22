@@ -1,5 +1,6 @@
 ﻿using System;
 using YesSensu;
+using YesSensu.Core;
 using YesSensu.Messages;
 
 namespace ConsoleApp1
@@ -23,7 +24,6 @@ namespace ConsoleApp1
             paceMaker.Start(new Heartbeat(AppName));
             using (var client = Client())
             {
-                //client.Connect();
                 var monitor = new SensuMonitor(client, AppName);
 
                 Console.WriteLine("Connected to server.");
@@ -35,7 +35,7 @@ namespace ConsoleApp1
                     if (choice.KeyChar == '1')
                     {
                         Console.WriteLine("Output: ");
-                        SendAppUp(monitor, Console.ReadLine());
+                        SendOk(monitor, Console.ReadLine());
                     }
 
                     if (choice.KeyChar == '2')
@@ -50,16 +50,18 @@ namespace ConsoleApp1
                         SendAppError(monitor, Console.ReadLine());
                     }
 
-                    if (choice.KeyChar == '4')
+                    if (choice.KeyChar == '0')
                     {
                         Console.WriteLine("Output: ");
-                        SendAppUpdate(monitor, Console.ReadLine());
+                        ManualHeartbeat(monitor, Console.ReadLine());
                     }
 
                     if (choice.KeyChar == 'q')
                     {
                         keepAlive = false;
                     }
+
+                    Console.WriteLine();
                 }
                 paceMaker.Stop();
             }
@@ -79,14 +81,14 @@ namespace ConsoleApp1
             var p = Console.ReadLine();
             if (string.IsNullOrEmpty(p))
             {
-                p = _type == ClientType.UDP ? "11000" : "13000";
+                p = _type == ClientType.Udp ? "11000" : "13000";
             }
             _port = Convert.ToInt32(p);
         }
 
         private static ISensuClient Client()
         {
-            if(_type == ClientType.UDP)
+            if(_type == ClientType.Udp)
                 return new SensuUdpClient(_host, _port);
             return new SensuTcpClient(_host, _port);
         }
@@ -108,24 +110,24 @@ namespace ConsoleApp1
             }
         }
 
-        private static void SendAppUp(SensuMonitor monitor, string message)
+        private static void SendOk(SensuMonitor monitor, string message)
         {
-            monitor.Ok(message);
+            monitor.Ok("some_metric", message);
         }
 
         private static void SendAppWarning(SensuMonitor monitor, string message)
         {
-            monitor.Warning(message);
+            monitor.Warning("some_metric", message);
         }
 
         private static void SendAppError(SensuMonitor monitor, string message)
         {
-            monitor.Error(message);
+            monitor.Error("some_metric", message);
         }
 
-        private static void SendAppUpdate(SensuMonitor monitor, string message)
+        private static void ManualHeartbeat(SensuMonitor monitor, string message)
         {
-            monitor.Metric("network_health", Status.Ok);
+            monitor.Heartbeat(60, message);
         }
 
         private static void Menu()

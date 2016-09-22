@@ -3,7 +3,7 @@ using System.Threading;
 using Xunit;
 using YesSensu.Messages;
 
-namespace YesSensu.Core.Tests
+namespace YesSensu.Tests
 {
     public class PacemakerTests : IDisposable
     {

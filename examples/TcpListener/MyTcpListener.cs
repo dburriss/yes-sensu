@@ -16,7 +16,7 @@ namespace MyTcpServer
             {
                 // Set the TcpListener on port 13000.
                 Int32 port = GetPort(args);
-                IPAddress localAddr = IPAddress.Parse(GetIp(args));
+                IPAddress localAddr = IPAddress.Parse(GetHost(args));
                 Console.WriteLine($"{localAddr} listening on port {port}");
                 // TcpListener server = new TcpListener(port);
                 server = new TcpListener(localAddr, port);
@@ -73,7 +73,7 @@ namespace MyTcpServer
             Console.Read();
         }
 
-        private static string GetIp(string[] args)
+        private static string GetHost(string[] args)
         {
             string ip = "127.0.0.1";
             if (args != null && args.Any() && !string.IsNullOrEmpty(args[0]))

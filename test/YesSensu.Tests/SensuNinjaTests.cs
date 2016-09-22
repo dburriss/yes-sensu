@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
+using YesSensu.Core;
 
-namespace YesSensu.Core.Tests
+namespace YesSensu.Tests
 {
     public class SensuNinjaTests
     {
@@ -26,7 +24,7 @@ namespace YesSensu.Core.Tests
         [Fact]
         public void Get_APacemakerWithTcpClientParam_PacemakerHasTcpClient()
         {
-            var pacemaker = SensuNinja.Get("host", 1, ClientType.TCP);
+            var pacemaker = SensuNinja.Get("host", 1, ClientType.Tcp);
             Assert.Equal(typeof(SensuTcpClient), pacemaker.Client.GetType());
         }
     }
