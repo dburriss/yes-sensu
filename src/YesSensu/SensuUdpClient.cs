@@ -36,7 +36,12 @@ namespace YesSensu
         {
             if (dispose)
             {
+#if COREFX
                 _client?.Dispose();
+#endif
+#if NET
+                _client?.Close();
+#endif
             }
         }
     }
