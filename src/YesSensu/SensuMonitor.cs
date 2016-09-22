@@ -1,4 +1,5 @@
 ﻿using System;
+using YesSensu.Core;
 using YesSensu.Messages;
 
 namespace YesSensu
@@ -15,7 +16,7 @@ namespace YesSensu
             _sensuClient.Connect();
         }
 
-        public virtual void Hearbeat(int period = 60, string message = "")
+        public virtual void Heartbeat(int period = 60, string message = "")
         {
             _sensuClient.Send(
                 new Heartbeat(_appName, period)
@@ -25,40 +26,30 @@ namespace YesSensu
             );
         }
 
-        public virtual void Ok(string message = "")
+        public virtual void Ok(string name, string message = "")
         {
             _sensuClient.Send(
-                new AppOk(_appName)
+                new Ok(_appName, name)
                 {
                     Output = message
                 }
             );
         }
 
-        public virtual void Warning(string message = "")
+        public virtual void Warning(string name, string message = "")
         {
             _sensuClient.Send(
-                new AppWarning(_appName)
+                new Warning(_appName, name)
                 {
                     Output = message
                 }
             );
         }
 
-        public virtual void Error(string message = "")
+        public virtual void Error(string name, string message = "")
         {
             _sensuClient.Send(
-                new AppError(_appName)
-                {
-                    Output = message
-                }
-            );
-        }
-
-        public virtual void Metric(string key, Status status, string message = "")
-        {
-            _sensuClient.Send(
-                new AppUpdate(_appName, key, status)
+                new Error(_appName, name)
                 {
                     Output = message
                 }

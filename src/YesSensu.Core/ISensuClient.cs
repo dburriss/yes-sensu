@@ -1,10 +1,11 @@
 ﻿using System;
 
-namespace YesSensu
+namespace YesSensu.Core
 {
     public interface ISensuClient : IDisposable
     {
         void Connect();
         void Send<TMessage>(TMessage message);
+        ISensuClient EnrichWith(ISensuEnricher enricher);
     }
 }

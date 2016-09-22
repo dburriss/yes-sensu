@@ -1,9 +1,10 @@
 ﻿using System.Net.Sockets;
 using System.Text;
+using YesSensu.Core;
 
 namespace YesSensu
 {
-    public class SensuUdpClient : ISensuClient
+    public class SensuUdpClient : SensuClientBase
     {
         private readonly string _host;
         private readonly int _port;
@@ -15,19 +16,20 @@ namespace YesSensu
             _port = port;
         }
 
-        public virtual void Connect()
+        public override void Connect()
         {
             _client = new UdpClient();
         }
 
-        public virtual void Send<TMessage>(TMessage message)
+        public override void Send<TMessage>(TMessage message)
         {
+            EnrichMessage(message as IHaveMeta);
             var msg = LowercaseJsonSerializer.SerializeObject(message);
             byte[] toBytes = Encoding.ASCII.GetBytes(msg);
             _client.SendAsync(toBytes, toBytes.Length, _host, _port);
         }
 
-        public virtual void Dispose()
+        public override void Dispose()
         {
             Dispose(true);
         }
