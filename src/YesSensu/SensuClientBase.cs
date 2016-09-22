@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using YesSensu.Messages;
+using YesSensu.Core;
 
 namespace YesSensu
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using Xunit;
+using YesSensu.Core;
 
 namespace YesSensu.Tests
 {

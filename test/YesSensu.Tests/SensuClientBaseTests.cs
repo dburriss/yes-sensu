@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using Xunit;
+using YesSensu.Core;
+using YesSensu.Enrichers;
 using YesSensu.Messages;
 
 namespace YesSensu.Tests

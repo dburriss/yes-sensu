@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using YesSensu.Messages;
+using YesSensu.Core;
 
 namespace YesSensu.Tests
 {

@@ -1,6 +1,4 @@
-﻿using YesSensu.Messages;
-
-namespace YesSensu
+﻿namespace YesSensu.Core
 {
     public interface ISensuEnricher
     {

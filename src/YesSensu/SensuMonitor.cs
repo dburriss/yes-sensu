@@ -1,4 +1,5 @@
 ﻿using System;
+using YesSensu.Core;
 using YesSensu.Messages;
 
 namespace YesSensu

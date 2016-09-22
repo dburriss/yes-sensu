@@ -1,4 +1,4 @@
-﻿namespace YesSensu.Messages
+﻿namespace YesSensu.Core
 {
     public enum Status
     {

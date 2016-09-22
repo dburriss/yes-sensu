@@ -1,5 +1,6 @@
 ﻿using System;
 using YesSensu;
+using YesSensu.Core;
 using YesSensu.Messages;
 
 namespace ConsoleApp1

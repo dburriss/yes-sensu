@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 using System.Text;
-using YesSensu.Messages;
+using YesSensu.Core;
 
 namespace YesSensu
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YesSensu
+namespace YesSensu.Core
 {
     public interface ISensuClient : IDisposable
     {

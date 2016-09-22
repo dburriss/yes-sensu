@@ -1,4 +1,4 @@
-﻿namespace YesSensu
+﻿namespace YesSensu.Core
 {
     public enum ClientType
     {

@@ -1,4 +1,6 @@
-﻿namespace YesSensu.Messages
+﻿using YesSensu.Core;
+
+namespace YesSensu.Messages
 {
     public class Warning : SensuBase
     {

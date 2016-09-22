@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
-using YesSensu.Messages;
+using YesSensu.Core;
 
-namespace YesSensu.Tests
+namespace YesSensu.Enrichers
 {
     public class HostInfoEnricher : ISensuEnricher
     {

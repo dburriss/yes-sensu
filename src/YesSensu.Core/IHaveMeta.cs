@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace YesSensu.Messages
+namespace YesSensu.Core
 {
     public interface IHaveMeta
     {
