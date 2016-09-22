@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyTcpListener")]
+[assembly: AssemblyCompany("Devon Burriss")]
+[assembly: AssemblyProduct("YesSensu")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dd7d5f75-6d6b-4ae2-8918-b80315eb9303")]
+[assembly: Guid("6a0153e0-b5e4-47f8-b051-e9fc17489bd5")]
 
 [assembly: AssemblyVersion("0.1.0.0")]
 [assembly: AssemblyInformationalVersion("0.1.0-unstable.7+Branch.develop.Sha.c38d4434c09ca9d9f8beb1992bd5882207ab65bb")]

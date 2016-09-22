@@ -53,15 +53,6 @@ namespace MyTcpServer
                                 // Translate data bytes to a ASCII string.
                                 data = Encoding.ASCII.GetString(bytes, 0, i);
                                 Console.WriteLine("Received: {0} \n", data);
-
-                                //// Process the data sent by the client.
-                                //data = data.ToUpper();
-
-                                //byte[] msg = Encoding.ASCII.GetBytes(data);
-
-                                //// Send back a response.
-                                //stream.Write(msg, 0, msg.Length);
-                                //Console.WriteLine("Sent: {0}", data);
                             }
                         }
                     }

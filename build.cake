@@ -15,7 +15,7 @@ var configuration = Argument("configuration", "Release");
 var solutionDir = Directory("./");
 var solutionFile = solutionDir + File("YesSensu.sln");
 var globalFile = solutionDir + File("global.json");
-var projDir = "./src/YesSensu.Core/";
+var projDir = "./src/YesSensu/";
 var buildDir = Directory(projDir + "bin") + Directory(configuration);
 
 //////////////////////////////////////////////////////////////////////
@@ -117,7 +117,8 @@ Task("Test")
 
 Task("Default")
     .IsDependentOn("Rebuild")
-    .IsDependentOn("Test");
+    .IsDependentOn("Test")
+    .IsDependentOn("Package");
     
 //////////////////////////////////////////////////////////////////////
 // EXECUTION

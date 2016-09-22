@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyTcpListener")]
+[assembly: AssemblyProduct("UdpListener")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,8 +16,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dd7d5f75-6d6b-4ae2-8918-b80315eb9303")]
-
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyInformationalVersion("0.1.0-unstable.7+Branch.develop.Sha.c38d4434c09ca9d9f8beb1992bd5882207ab65bb")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: Guid("56e4c400-70c9-4154-aa3a-8916bca8bbf0")]

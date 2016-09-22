@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyTcpListener")]
+[assembly: AssemblyProduct("YesSensu.Core.Tests")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dd7d5f75-6d6b-4ae2-8918-b80315eb9303")]
+[assembly: Guid("73c91067-e385-4165-9715-c5f2fb1564d1")]
 
 [assembly: AssemblyVersion("0.1.0.0")]
 [assembly: AssemblyInformationalVersion("0.1.0-unstable.7+Branch.develop.Sha.c38d4434c09ca9d9f8beb1992bd5882207ab65bb")]
