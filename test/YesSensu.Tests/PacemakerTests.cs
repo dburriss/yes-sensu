@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Xunit;
-using YesSensu.Core.Messages;
+using YesSensu.Messages;
 
 namespace YesSensu.Core.Tests
 {

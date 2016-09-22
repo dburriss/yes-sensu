@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace YesSensu.Core.Messages
+namespace YesSensu.Messages
 {
     public class SensuMeta : SensuBase
     {

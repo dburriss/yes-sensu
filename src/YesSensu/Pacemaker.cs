@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
-using YesSensu.Core.Messages;
+using YesSensu.Messages;
 
-namespace YesSensu.Core
+namespace YesSensu
 {
     public class Pacemaker
     {

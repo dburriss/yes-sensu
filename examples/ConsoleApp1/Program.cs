@@ -9,8 +9,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using YesSensu.Core;
-using YesSensu.Core.Messages;
+using YesSensu;
+using YesSensu.Messages;
 
 namespace ConsoleApp1
 {
@@ -29,9 +29,11 @@ namespace ConsoleApp1
 
             var paceMaker = SensuNinja.Get(ip, port);
             paceMaker.Start(new Heartbeat(AppName));
-            using (var client = new SensuTcpClient(ip, port))
+            using (var client = new SensuUdpClient(ip, port))
             {
-                client.Connect();
+                //client.Connect();
+                var monitor = new SensuMonitor(client, AppName);
+                
                 Console.WriteLine("Connected to server.");
                 Menu();
                 while (keepAlive)
@@ -41,25 +43,25 @@ namespace ConsoleApp1
                     if (choice.KeyChar == '1')
                     {
                         Console.WriteLine("Output: ");
-                        SendAppUp(client, Console.ReadLine());
+                        SendAppUp(monitor, Console.ReadLine());
                     }
 
                     if (choice.KeyChar == '2')
                     {
                         Console.WriteLine("Output: ");
-                        SendAppWarning(client, Console.ReadLine());
+                        SendAppWarning(monitor, Console.ReadLine());
                     }
 
                     if (choice.KeyChar == '3')
                     {
                         Console.WriteLine("Output: ");
-                        SendAppError(client, Console.ReadLine());
+                        SendAppError(monitor, Console.ReadLine());
                     }
 
                     if (choice.KeyChar == '4')
                     {
                         Console.WriteLine("Output: ");
-                        SendAppUpdate(client, Console.ReadLine());
+                        SendAppUpdate(monitor, Console.ReadLine());
                     }
 
                     if (choice.KeyChar == 'q')
@@ -72,41 +74,24 @@ namespace ConsoleApp1
 
         }
 
-        private static void SendAppUp(SensuTcpClient sensuTcpClient, string message)
+        private static void SendAppUp(SensuMonitor monitor, string message)
         {
-            var msg = new AppOk(AppName)
-            {
-                Output = message
-            };
-            sensuTcpClient.Send(msg);
+            monitor.Ok(message);
         }
 
-        private static void SendAppWarning(SensuTcpClient sensuTcpClient, string message)
+        private static void SendAppWarning(SensuMonitor monitor, string message)
         {
-            var msg = new AppWarning(AppName)
-            {
-                Output = message
-            };
-            sensuTcpClient.Send(msg);
+            monitor.Warning(message);
         }
 
-        private static void SendAppError(SensuTcpClient sensuTcpClient, string message)
+        private static void SendAppError(SensuMonitor monitor, string message)
         {
-            var msg = new AppError(AppName)
-            {
-                Output = message
-            };
-            sensuTcpClient.Send(msg);
+            monitor.Error(message);
         }
 
-        private static void SendAppUpdate(SensuTcpClient sensuTcpClient, string message)
+        private static void SendAppUpdate(SensuMonitor monitor, string message)
         {
-            var msg = new AppUpdate(AppName, "network_health", Status.Ok)
-            {
-                Output = message
-            };
-            msg.AddMeta("some_metric", new { ip, port });
-            sensuTcpClient.Send(msg);
+            monitor.Metric("network_health", Status.Ok);
         }
 
         private static void Menu()

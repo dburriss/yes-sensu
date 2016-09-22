@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YesSensu.Core.Messages
+namespace YesSensu.Messages
 {
     public abstract class SensuBase
     {

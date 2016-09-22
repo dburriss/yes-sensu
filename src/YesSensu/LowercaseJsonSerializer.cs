@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace YesSensu.Core
+namespace YesSensu
 {
     public class LowercaseJsonSerializer
     {
