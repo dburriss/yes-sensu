@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Xunit;
 using YesSensu.Messages;
 
-namespace YesSensu.Core.Tests
+namespace YesSensu.Tests
 {
     public class SensuMonitorTests
     {
@@ -12,7 +11,7 @@ namespace YesSensu.Core.Tests
         {
             var client = new MockSensuClient();
             var sut = new SensuMonitor(client, "testApp");
-            sut.Hearbeat();
+            sut.Heartbeat();
             var message = client.Messages.First();
             Assert.IsType<Heartbeat>(message);
         }
@@ -23,7 +22,7 @@ namespace YesSensu.Core.Tests
             var text = "text";
             var client = new MockSensuClient();
             var sut = new SensuMonitor(client, "testApp");
-            sut.Hearbeat(message: text);
+            sut.Heartbeat(message: text);
             var message = client.Messages.First() as Heartbeat;
             Assert.Equal(text, message.Output);
         }
@@ -33,7 +32,7 @@ namespace YesSensu.Core.Tests
         {
             var client = new MockSensuClient();
             var sut = new SensuMonitor(client, "testApp");
-            sut.Hearbeat();
+            sut.Heartbeat();
             var message = client.Messages.First() as Heartbeat;
             Assert.Equal(60, message.Ttl);
         }
@@ -43,7 +42,7 @@ namespace YesSensu.Core.Tests
         {
             var client = new MockSensuClient();
             var sut = new SensuMonitor(client, "testApp");
-            sut.Hearbeat(period:5);
+            sut.Heartbeat(period:5);
             var message = client.Messages.First() as Heartbeat;
             Assert.Equal(5, message.Ttl);
         }
@@ -53,9 +52,9 @@ namespace YesSensu.Core.Tests
         {
             var client = new MockSensuClient();
             var sut = new SensuMonitor(client, "testApp");
-            sut.Ok();
+            sut.Ok("some_dependency");
             var message = client.Messages.First();
-            Assert.IsType<AppOk>(message);
+            Assert.IsType<Ok>(message);
         }
 
         [Fact]
@@ -63,9 +62,9 @@ namespace YesSensu.Core.Tests
         {
             var client = new MockSensuClient();
             var sut = new SensuMonitor(client, "testApp");
-            sut.Warning();
+            sut.Warning("some_dependency");
             var message = client.Messages.First();
-            Assert.IsType<AppWarning>(message);
+            Assert.IsType<Warning>(message);
         }
 
         [Fact]
@@ -73,71 +72,10 @@ namespace YesSensu.Core.Tests
         {
             var client = new MockSensuClient();
             var sut = new SensuMonitor(client, "testApp");
-            sut.Error();
+            sut.Error("some_dependency");
             var message = client.Messages.First();
-            Assert.IsType<AppError>(message);
+            Assert.IsType<Error>(message);
         }
 
-        [Fact]
-        public void Metric_WithAnyParameters_SendsAppUpdate()
-        {
-            var client = new MockSensuClient();
-            var sut = new SensuMonitor(client, "testApp");
-            sut.Metric("some_dependency", Status.Ok);
-            sut.Metric("some_dependency", Status.Warning);
-            sut.Metric("some_dependency", Status.Error);
-            var messages = client.Messages.ToArray();
-            Assert.IsType<AppUpdate>(messages[0]);
-            Assert.IsType<AppUpdate>(messages[1]);
-            Assert.IsType<AppUpdate>(messages[2]);
-        }
-
-        [Fact]
-        public void Metric_WithKeyX_MessageNameIsX()
-        {
-            var key = "X";
-            var client = new MockSensuClient();
-            var sut = new SensuMonitor(client, "testApp");
-            sut.Metric(key, Status.Warning);
-            var message = client.Messages.First() as AppUpdate;
-            Assert.Equal(key, message.Name);
-        }
-
-        [Fact]
-        public void Metric_WithAppNameY_MessageSourceIsY()
-        {
-            var key = "X";
-            var client = new MockSensuClient();
-            var sut = new SensuMonitor(client, "Y");
-            sut.Metric(key, Status.Warning);
-            var message = client.Messages.First() as AppUpdate;
-            Assert.Equal("Y", message.Source);
-        }
-    }
-
-    public class MockSensuClient : ISensuClient
-    {
-        public bool IsDisposed { get; private set; }
-        public bool IsConnected { get; private set; }
-        public ICollection<object> Messages { get; private set; }
-
-        public MockSensuClient()
-        {
-            Messages = new List<object>();
-        }
-        public void Dispose()
-        {
-            IsDisposed = true;
-        }
-
-        public void Connect()
-        {
-            IsConnected = true;
-        }
-
-        public void Send<TMessage>(TMessage message)
-        {
-            Messages.Add(message);
-        }
     }
 }
