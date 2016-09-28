@@ -5,7 +5,7 @@ namespace YesSensu
 {
     public abstract class SensuClientBase : ISensuClient
     {
-        protected ICollection<ISensuEnricher> Enrichers = new List<ISensuEnricher>();
+        public ICollection<ISensuEnricher> Enrichers { get; }
 
         public abstract void Dispose();
         public abstract void Connect();
@@ -26,6 +26,11 @@ namespace YesSensu
             {
                 enricher.Enrich(message);
             }
+        }
+
+        protected SensuClientBase()
+        {
+            Enrichers = new List<ISensuEnricher>();
         }
     }
 }

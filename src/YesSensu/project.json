@@ -1,5 +1,5 @@
 ﻿{
-  "version": "0.1.0-messages.1+16",
+  "version": "0.2.0",
   "authors": [
     "Devon Burriss"
   ],
@@ -17,7 +17,7 @@
   "dependencies": {
     "NETStandard.Library": "1.6.0",
     "Newtonsoft.Json": "9.0.1",
-    "YesSensu.Core": "1.0.0-*"
+    "YesSensu.Core": "1.1.0-*"
   },
   "frameworks": {
     "netstandard1.6": {
