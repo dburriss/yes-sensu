@@ -33,6 +33,13 @@ var pacemaker = SensuNinja.Get("sensu.myhost.com", 3000);
 pacemaker.Stop();
 ```
 
+Alternatively, or on application exit you can kill off the pacemaker like so:
+
+```csharp
+var pacemaker = SensuNinja.Get("sensu.myhost.com", 3000);
+pacemaker.Kill();
+```
+
 ### Sensu Monitor
 
 The Sensu Monitor allows you to send a set of messages to the server easily.
@@ -116,6 +123,10 @@ Example message:
 
 The interfaces required for custom message enrichement are contained in the `YesSensu.Core` namespace.
 
+|BLEEDING|NUGET|
+|--------|-----|
+|[![MyGet CI][13]][14]|[![NuGet CI][15]][16]|
+
 > Install-Package YesSensu.Core
 
 #### Your message
@@ -155,3 +166,7 @@ Check out the [HostInfoEnricher](https://github.com/dburriss/yes-sensu/blob/mast
 [10]: https://www.myget.org/feed/Packages/dburriss-ci
 [11]: https://img.shields.io/nuget/v/YesSensu.Enrichers.svg
 [12]: https://www.nuget.org/packages/YesSensu.Enrichers/
+[13]: https://img.shields.io/myget/dburriss-ci/vpre/YesSensu.Core.svg
+[14]: https://www.myget.org/feed/Packages/dburriss-ci
+[15]: https://img.shields.io/nuget/v/YesSensu.Core.svg
+[16]: https://www.nuget.org/packages/YesSensu.Core/

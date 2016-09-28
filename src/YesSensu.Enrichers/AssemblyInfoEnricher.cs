@@ -5,18 +5,24 @@ using YesSensu.Core;
 
 namespace YesSensu.Enrichers
 {
+    /// <summary>
+    /// I pull out Assembly attributes and add them to the meta data of a message
+    /// </summary>
     public class AssemblyInfoEnricher : ISensuEnricher
     {
         private readonly Assembly _assembly;
+        private readonly string _prefix;
 
         public AssemblyInfoEnricher()
         {
+            _prefix = "";
             _assembly = Assembly.GetEntryAssembly();
         }
 
-        public AssemblyInfoEnricher(Assembly assembly)
+        public AssemblyInfoEnricher(Assembly assembly, string prefix = "")
         {
             _assembly = assembly;
+            _prefix = prefix;
         }
 
         public void Enrich(IHaveMeta obj)
@@ -43,7 +49,7 @@ namespace YesSensu.Enrichers
         private string Key(CustomAttributeData t)
         {
             var key = t.AttributeType.Name.Replace("Assembly", "").Replace("Attribute", "");
-            return key;
+            return _prefix + key;
         }
     }
 }
