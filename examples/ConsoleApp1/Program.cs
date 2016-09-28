@@ -1,6 +1,7 @@
 ﻿using System;
 using YesSensu;
 using YesSensu.Core;
+using YesSensu.Enrichers;
 using YesSensu.Messages;
 
 namespace ConsoleApp1
@@ -20,7 +21,7 @@ namespace ConsoleApp1
 
             bool keepAlive = true;
 
-            var paceMaker = SensuNinja.Get(_host, _port, _type);
+            var paceMaker = SensuNinja.Get(_host, _port, _type, new HostInfoEnricher());
             paceMaker.Start(new Heartbeat(AppName));
             using (var client = Client())
             {
@@ -88,9 +89,15 @@ namespace ConsoleApp1
 
         private static ISensuClient Client()
         {
-            if(_type == ClientType.Udp)
-                return new SensuUdpClient(_host, _port);
-            return new SensuTcpClient(_host, _port);
+            ISensuClient client = null;
+            if (_type == ClientType.Udp)
+                client = new SensuUdpClient(_host, _port);
+            else
+                client = new SensuTcpClient(_host, _port);
+
+            client.EnrichWith(new HostInfoEnricher());
+            client.EnrichWith(new AssemblyInfoEnricher());
+            return client;
         }
 
         private static void SelectProtocol()

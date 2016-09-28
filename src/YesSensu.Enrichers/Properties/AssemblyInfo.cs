@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Devon Burriss")]
 [assembly: AssemblyProduct("YesSensu.Enrichers")]
 [assembly: AssemblyTrademark("")]
 
@@ -18,6 +18,6 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("5c39c3a4-2738-4d6e-8f7f-5a0362dc2749")]
 
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyInformationalVersion("0.1.0-messages.1+16.Branch.feature/messages.Sha.1fbd188bf920188ae1c39849b297545c6cf9da86")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("1.2.0.0")]
+[assembly: AssemblyInformationalVersion("0.2.0+Branch.feature/AssemblyEnricher.Sha.81c27cee5be57f638ad08c53e4ac17ef73f3ea30")]
+[assembly: AssemblyFileVersion("1.2.0.0")]
