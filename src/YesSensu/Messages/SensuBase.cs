@@ -31,7 +31,7 @@ namespace YesSensu.Messages
 
         public void AddMeta(string name, object data)
         {
-            _meta.Add(name, data);
+            _meta[name] = data;
         }
 
     }

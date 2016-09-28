@@ -44,16 +44,13 @@ var sensu = new SensuMonitor(new SensuUdpClient("sensu.myhost.com", 3000), "MyAp
 sensu.Warning();
 ```
 
-> void Ok(string message = "")  
-> void Warning(string message = "")  
-> void Error(string message = "")  
-> void Metric(string key, Status status, string message = "")  
-> void Hearbeat(int period = 60, string message = "")  
-
-The `Metric` method allows sending keys that represent sub-systems within or external to your application (that the application depends on).
+> void Ok(string name, string message = "")  
+> void Warning(string name, string message = "")  
+> void Error(string name, string message = "")  
+> void Heartbeat(int period = 60, string message = "")  
 
 ```csharp
-sensu.Metric("customer_database", Status.Error, "Cannot connect to the customer database for more than 30 seconds.");
+sensu.Error("customer_database", "Cannot connect to the customer database for more than 30 seconds.");
 ```
 
 ### Sensu client
@@ -81,6 +78,7 @@ You can install the existing enrichers with the following command:
 
 > Install-Package YesSensu.Enrichers
 
+- StaticEnricher - adds values from a supplied dictionary to the **meta**.  
 - HostInfoEnricher - adds the *host_name* and *machine_name* to the **meta**.
 ```javascript
 "host_name": "DESKTOP-1PI4O6G",
