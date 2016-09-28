@@ -33,6 +33,13 @@ var pacemaker = SensuNinja.Get("sensu.myhost.com", 3000);
 pacemaker.Stop();
 ```
 
+Alternatively, or on application exit you can kill off the pacemaker like so:
+
+```csharp
+var pacemaker = SensuNinja.Get("sensu.myhost.com", 3000);
+pacemaker.Kill();
+```
+
 ### Sensu Monitor
 
 The Sensu Monitor allows you to send a set of messages to the server easily.
