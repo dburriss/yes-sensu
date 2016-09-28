@@ -3,9 +3,12 @@ using YesSensu.Core;
 
 namespace YesSensu
 {
+    /// <summary>
+    /// Base abstract class for clients that send information to Sensu
+    /// </summary>
     public abstract class SensuClientBase : ISensuClient
     {
-        protected ICollection<ISensuEnricher> Enrichers = new List<ISensuEnricher>();
+        public ICollection<ISensuEnricher> Enrichers { get; }
 
         public abstract void Dispose();
         public abstract void Connect();
@@ -26,6 +29,11 @@ namespace YesSensu
             {
                 enricher.Enrich(message);
             }
+        }
+
+        protected SensuClientBase()
+        {
+            Enrichers = new List<ISensuEnricher>();
         }
     }
 }

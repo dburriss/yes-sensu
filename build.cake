@@ -44,8 +44,11 @@ Task("Update-Version")
     .Does(() => 
 {
     var jsonFile = sensuProjDir + "project.json";
-    GitVersion(new GitVersionSettings {
-        UpdateAssemblyInfo = true});
+    GitVersion(
+        new GitVersionSettings {
+            UpdateAssemblyInfo = true,
+            UpdateAssemblyInfoFilePath = new FilePath(sensuProjDir + "Properties/AssemblyInfo.cs")
+        });
     string version = GitVersion().FullSemVer;
     Console.WriteLine(version);
 
