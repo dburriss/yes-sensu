@@ -5,12 +5,19 @@ using YesSensu.Messages;
 
 namespace YesSensu
 {
+    /// <summary>
+    /// Pacemaker sends regular heartbeats to Sensu within a Thread it creates
+    /// </summary>
     public class Pacemaker
     {
         public ISensuClient Client { get; }
         private Thread _workerThread;
         private readonly CancellationTokenSource _tokenSource;
 
+        /// <summary>
+        /// Constructor for Pacemaker
+        /// </summary>
+        /// <param name="client">The Sensu client used to send the hearbeat</param>
         public Pacemaker(ISensuClient client)
         {
             if(client == null)
@@ -20,6 +27,10 @@ namespace YesSensu
             _tokenSource = new CancellationTokenSource();
         }
 
+        /// <summary>
+        /// Start the heartbeat sends
+        /// </summary>
+        /// <param name="heartBeat">The Heartbeat that is sent. The frequency of sending is extracted from this.</param>
         public void Start(Heartbeat heartBeat)
         {
             if(heartBeat == null)
@@ -50,6 +61,9 @@ namespace YesSensu
             }
         }
 
+        /// <summary>
+        /// Stops the Pacemaker from sending heartbeats
+        /// </summary>
         public void Stop()
         {
             _tokenSource.Cancel();

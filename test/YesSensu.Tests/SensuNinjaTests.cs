@@ -22,7 +22,7 @@ namespace YesSensu.Tests
             var pacemaker = SensuNinja.Get(host, port);
             Assert.NotNull(pacemaker);
             Assert.IsType<Pacemaker>(pacemaker);
-            SensuNinja.Close(host, port);
+            SensuNinja.Kill(host, port);
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace YesSensu.Tests
             var protocol = ClientType.Tcp;
             var pacemaker = SensuNinja.Get(host, port, protocol);
             Assert.Equal(typeof(SensuTcpClient), pacemaker.Client.GetType());
-            SensuNinja.Close(host, port, protocol);
+            SensuNinja.Kill(host, port, protocol);
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace YesSensu.Tests
             var protocol = ClientType.Udp;
             var pacemaker = SensuNinja.Get(host, port, protocol, new HostInfoEnricher(), new AssemblyInfoEnricher());
             Assert.Equal(2, pacemaker.Client.Enrichers.Count);
-            SensuNinja.Close(host, port, protocol);
+            SensuNinja.Kill(host, port, protocol);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace YesSensu.Tests
             var protocol = ClientType.Tcp;
             var pacemaker = SensuNinja.Get(host, port, protocol, new HostInfoEnricher(), new AssemblyInfoEnricher());
             Assert.Equal(2, pacemaker.Client.Enrichers.Count);
-            SensuNinja.Close(host, port, protocol);
+            SensuNinja.Kill(host, port, protocol);
         }
     }
 }
