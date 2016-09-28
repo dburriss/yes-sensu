@@ -5,6 +5,7 @@ branches:
   only:
   - master
   - develop
+  - release
 nuget:  
   disable_publish_on_pr: true
 build_script:  
