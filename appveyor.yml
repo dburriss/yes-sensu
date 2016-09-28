@@ -5,7 +5,7 @@ branches:
   only:
   - master
   - develop
-  - release\/[\d\D].[\d\D].[\d\D].
+  - /release\/.*/
 nuget:  
   disable_publish_on_pr: true
 build_script:  
@@ -28,7 +28,7 @@ deploy:
     secure: 'Rx7T4w1rjWYdQyNk7wKBOjylk11kMKhd8QfVnjbLdTNr+HJwDIDegUzqb5AXNWmr'
   skip_symbols: true
   on:
-    branch: release\/[\d\D].[\d\D].[\d\D].
+    branch: /release\/.*/
 - provider: NuGet
   server: https://www.myget.org/F/dburriss-ci/api/v2/package
   api_key:
