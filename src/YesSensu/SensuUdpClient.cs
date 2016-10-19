@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net.Sockets;
 using System.Text;
 using YesSensu.Core;
 
@@ -8,25 +9,47 @@ namespace YesSensu
     {
         private readonly string _host;
         private readonly int _port;
+        private readonly bool _throwOnConnectionError;
         private UdpClient _client;
 
-        public SensuUdpClient(string host, int port)
+        public SensuUdpClient(string host, int port, bool throwOnConnectionError = false)
         {
             _host = host;
             _port = port;
+            _throwOnConnectionError = throwOnConnectionError;
         }
 
         public override void Connect()
         {
-            _client = new UdpClient();
+            try
+            {
+                _client = new UdpClient();
+            }
+            catch (Exception)
+            {
+                if (_throwOnConnectionError)
+                    throw;
+            }
+
         }
 
         public override void Send<TMessage>(TMessage message)
         {
-            EnrichMessage(message as IHaveMeta);
-            var msg = LowercaseJsonSerializer.SerializeObject(message);
-            byte[] toBytes = Encoding.ASCII.GetBytes(msg);
-            _client.SendAsync(toBytes, toBytes.Length, _host, _port);
+            if (_client == null)
+                throw new InvalidOperationException("Udp client is null. Did you call Connect()?");
+            try
+            {
+                EnrichMessage(message as IHaveMeta);
+                var msg = LowercaseJsonSerializer.SerializeObject(message);
+                byte[] toBytes = Encoding.ASCII.GetBytes(msg);
+                _client.SendAsync(toBytes, toBytes.Length, _host, _port);
+            }
+            catch (Exception)
+            {
+                if (_throwOnConnectionError)
+                    throw;
+            }
+
         }
 
         public override void Dispose()
@@ -38,12 +61,21 @@ namespace YesSensu
         {
             if (dispose)
             {
+                try
+                {
 #if COREFX
-                _client?.Dispose();
+                    _client?.Dispose();
 #endif
 #if NET
-                _client?.Close();
+                    _client?.Close();
 #endif
+                }
+                catch (Exception)
+                {
+                    if(_throwOnConnectionError)
+                        throw;
+                }
+
             }
         }
     }
