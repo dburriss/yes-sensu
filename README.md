@@ -48,7 +48,7 @@ As an example you can signal a warning from you application:
 
 ```csharp
 var sensu = new SensuMonitor(new SensuUdpClient("sensu.myhost.com", 3000), "MyApp");
-sensu.Warning();
+sensu.Warning("customer_database", "Queries are running slow.");
 ```
 
 > void Ok(string name, string message = "")  
@@ -87,11 +87,14 @@ You can install the existing enrichers with the following command:
 
 - StaticEnricher - adds values from a supplied dictionary to the **meta**.  
 - HostInfoEnricher - adds the *host_name* and *machine_name* to the **meta**.
+
 ```javascript
 "host_name": "DESKTOP-1PI4O6G",
 "machine_name": "DESKTOP-1PI4O6G"
 ```
+
 - AssemblyInfoEnricher - adds all the `Assembly` attributes as properties on the **meta**.
+
 ```javascript
 "product": "ConsoleApp1",
 "informationalversion": "0.2.0+Branch.feature/AssemblyEnricher.Sha.81c27cee5be57f638ad08c53e4ac17ef73f3ea30",
