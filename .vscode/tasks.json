@@ -4,13 +4,29 @@
     "isShellCommand": true,
     "args": [],
     "tasks": [
+        // {
+        //     "taskName": "build",
+        //     "args": [
+        //         ""
+        //     ],
+        //     "isBuildCommand": true,
+        //     "problemMatcher": "$msCompile"
+        // }
         {
-            "taskName": "build",
-            "args": [
-                ""
-            ],
-            "isBuildCommand": true,
-            "problemMatcher": "$msCompile"
+            "taskName": "Build",
+            "command": "powershell",
+            "isShellCommand": true,
+            "args": [".\\build.ps1 -target Rebuild"],
+            "showOutput": "always",
+            "isBuildCommand": true
+        },
+        {
+            "taskName": "Run",
+            "command": "powershell",
+            "isShellCommand": false,
+            "args": [".\\build.ps1 -target Test"],
+            "showOutput": "always",
+            "isTestCommand": true
         }
     ]
 }

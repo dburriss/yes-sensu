@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using YesSensu;
 using YesSensu.Core;
 using YesSensu.Enrichers;
@@ -15,9 +16,9 @@ namespace ConsoleApp1
 
         public static void Main(string[] args)
         {
-            SelectProtocol();
-            SelectHost();
-            SelectPort();
+            SelectProtocol(args);
+            SelectHost(args);
+            SelectPort(args);
 
             bool keepAlive = true;
 
@@ -69,17 +70,35 @@ namespace ConsoleApp1
             Environment.Exit(0);
         }
 
-        private static void SelectHost()
+        private static void SelectHost(IReadOnlyList<string> args)
         {
-            Console.WriteLine("Enter host Address");
-            var h = Console.ReadLine();
+            string h;
+            if (args.Count > 0)
+            {
+                h = args[1];
+            }
+            else
+            {
+                Console.WriteLine("Enter host Address");
+                h = Console.ReadLine();
+            }
+            
             _host = string.IsNullOrEmpty(h) ? "127.0.0.1" : h;
         }
 
-        private static void SelectPort()
+        private static void SelectPort(IReadOnlyList<string> args)
         {
-            Console.WriteLine("Enter port number");
-            var p = Console.ReadLine();
+            string p;
+            if (args.Count > 0)
+            {
+                p = args[2];
+            }
+            else
+            {
+                Console.WriteLine("Enter port number");
+                p = Console.ReadLine();
+            }
+            
             if (string.IsNullOrEmpty(p))
             {
                 p = _type == ClientType.Udp ? "11000" : "13000";
@@ -100,11 +119,20 @@ namespace ConsoleApp1
             return client;
         }
 
-        private static void SelectProtocol()
+        private static void SelectProtocol(IReadOnlyList<string> args)
         {
+            string c;
             int t = -1;
-            Console.WriteLine("Choose protocol. '0' for UDP or '1' for TCP: ");
-            var c = Console.ReadKey().KeyChar.ToString();
+            if (args.Count > 0)
+            {
+                c = args[0];
+            }
+            else
+            {
+                Console.WriteLine("Choose protocol. '0' for UDP or '1' for TCP: ");
+                c = Console.ReadKey().KeyChar.ToString();
+            }
+                
             if (int.TryParse(c, out t))
             {
                 if (t == 0 || t == 1)
@@ -112,7 +140,7 @@ namespace ConsoleApp1
                 else
                 {
                     Console.WriteLine("Invalid protocol choice.");
-                    SelectProtocol();
+                    SelectProtocol(args);
                 }
             }
         }

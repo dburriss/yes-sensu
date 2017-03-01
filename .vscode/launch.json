@@ -2,16 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
-            "type": "coreclr",
+            "type": "PowerShell",
             "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/<target-framework>/<project-name.dll>",
-            "args": [],
-            "cwd": "${workspaceRoot}",
-            "externalConsole": false,
-            "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
+            "name": "PowerShell Launch (Script)",
+            "script": "${workspaceRoot}/build.ps1",
+            "args": ["-target Run"],
+            "cwd": "${workspaceRoot}"        
         },
         {
             "name": ".NET Core Attach",

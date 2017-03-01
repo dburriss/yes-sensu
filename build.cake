@@ -1,5 +1,6 @@
 #addin "Newtonsoft.Json"
 #tool "nuget:?package=GitVersion.CommandLine"
+#addin "Cake.Powershell"
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -119,6 +120,38 @@ Task("Test")
     }
 });
 
+Task("Run")
+    .Does(() =>
+{
+    StartPowershellScript("Start-Process powershell \".\\build.ps1 -target Run-UdpListener -Wait\"", new PowershellSettings()
+            .SetFormatOutput()
+            .SetLogOutput());
+
+    StartPowershellScript("Start-Process powershell \".\\build.ps1 -target Run-Console -Wait\"", new PowershellSettings()
+            .SetFormatOutput()
+            .SetLogOutput());
+    
+    // var projects = GetFiles("./examples/**/project.json");
+    // Console.WriteLine("Projects to run: " + projects.Count());
+    // foreach(var proj in projects)
+    // {
+    //     Console.WriteLine(proj.FullPath);
+    //     DotNetCoreRun(proj.FullPath);
+    // }
+});
+
+Task("Run-UdpListener")
+    .Does(() =>
+{
+    DotNetCoreRun("./examples/UdpListener/project.json");
+    
+});
+
+Task("Run-Console")
+    .Does(() =>
+{
+    DotNetCoreRun("./examples/ConsoleApp1/project.json", "0 127.0.0.1 11000");
+});
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
